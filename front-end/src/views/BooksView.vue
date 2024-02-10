@@ -5,7 +5,7 @@
         title="Books" 
         text="The precision with which this object was constructed is inspiring." />
         <BookList :books="paginatedBooks"/>    
-         <Pagination :currentPage="currentPage" :totalPages="totalPages"/> 
+         <Pagination :currentPage="currentPage" :totalPages="totalPages" @page-changed="updatePage"/> 
     </div>
   </section>
 </template>
@@ -26,7 +26,7 @@
             return{
                 books: books,
                 currentPage: 1,
-                itemsPerPage: 4
+                itemsPerPage: 8
             }
         },
         computed: {
@@ -37,6 +37,11 @@
                 const startIndex = (this.currentPage - 1) * this.itemsPerPage;
                 const endIndex = startIndex + this.itemsPerPage;
                 return this.books.slice(startIndex, endIndex);
+            }
+        },
+        methods: {
+            updatePage(page) {
+                this.currentPage = page
             }
         }
     }
